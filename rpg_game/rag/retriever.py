@@ -34,13 +34,36 @@ class RAGRetriever:
                 persist_directory=self.vector_db_path,
                 embedding_function=self.embeddings
             )
-            print(f"Loaded vector database with {self.vectordb._collection.count()} documents")
+            doc_count = self.vectordb._collection.count()
+            print(f"Loaded vector database with {doc_count} documents")
+            
+            # If no documents are found, load them from the historical data file
+            if doc_count == 0:
+                self._load_historical_data()
         except Exception as e:
             print(f"Creating new vector database: {e}")
             self.vectordb = Chroma(
                 embedding_function=self.embeddings,
                 persist_directory=self.vector_db_path
             )
+            # Load historical data into the new database
+            self._load_historical_data()
+    
+    def _load_historical_data(self, data_path: str = './data/historical_data.json'):
+        """Load historical data from JSON file and add to vector database
+        
+        Args:
+            data_path: Path to the historical data JSON file
+        """
+        try:
+            with open(data_path, 'r') as f:
+                historical_data = json.load(f)
+                
+            print(f"Loading {len(historical_data)} documents from {data_path}")
+            self.add_documents(historical_data)
+            print(f"Successfully loaded historical data. Vector DB now has {self.vectordb._collection.count()} documents")
+        except Exception as e:
+            print(f"Error loading historical data: {e}")
     
     def add_documents(self, documents: List[Dict[str, Any]]):
         """Add historical documents to the vector database
@@ -115,10 +138,29 @@ class RAGRetriever:
                     "tags": tags
                 })
             
+            # If no results were found with the filter, try again without a filter
+            if not results:
+                print(f"[RAG] No results found with filter. Trying without filter...")
+                # Get at least one document without any filter
+                fallback_docs = self.vectordb.similarity_search(
+                    query=query,
+                    k=1
+                )
+                
+                for doc in fallback_docs:
+                    tags = doc.metadata.get("tags", "").split(",") if doc.metadata.get("tags") else []
+                    results.append({
+                        "title": doc.metadata.get("title", "Unknown"),
+                        "text": doc.page_content,
+                        "tags": tags
+                    })
+            
             print(f"[RAG] Retrieved {len(results)} documents")
             if results:
                 print(f"[RAG] First result title: {results[0]['title']}")
                 print(f"[RAG] First result text snippet: {results[0]['text'][:100]}...")
+            else:
+                print("[RAG] WARNING: Still no results found. Check if historical data was loaded correctly.")
             
             return results
             
