@@ -7,7 +7,7 @@ from ai21 import AI21Client
 from ai21.models.chat import ChatMessage
 
 # Set your API key here
-AI21_API_KEY = "your_api_key_here"  # Replace with your actual API key
+AI21_API_KEY = "v7uBaXL8sXKB4SmHsrxIOa14sYsWPcT9"  # Replace with your actual API key
 os.environ['AI21_API_KEY'] = AI21_API_KEY
 
 print("Welcome to Medieval Chronicles: The Fallen Knight!")
