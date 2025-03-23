@@ -76,38 +76,48 @@ class RAGRetriever:
         Returns:
             List of relevant historical context documents
         """
-        # Prepare filter if tags are provided
-        filter_dict = None
-        if filter_tags:
-            # Use $in operator which is supported by ChromaDB
-            # We'll search for any document that has at least one of the tags
-            # Make sure we're using a string for each tag
-            string_tags = [str(tag) for tag in filter_tags]
-            filter_dict = {"tags": {"$in": string_tags}}
-        
         try:
-            # Retrieve documents
-            docs = self.vectordb.similarity_search(
-                query=query,
-                k=top_k,
-                filter=filter_dict
-            )
-        except ValueError as e:
-            print(f"Error in similarity search: {e}")
-            # Return empty results if there's an error
+            # Prepare filter if tags are provided
+            filter_dict = None
+            
+            # Only use filter if we have tags
+            if filter_tags and len(filter_tags) > 0:
+                # Convert all tags to strings to avoid type issues
+                string_tags = [str(tag).strip() for tag in filter_tags if tag]
+                
+                if string_tags:
+                    # Use $in operator which is supported by ChromaDB
+                    filter_dict = {"tags": {"$in": string_tags}}
+            
+            # Retrieve documents - without filter if filter_dict is None
+            if filter_dict:
+                docs = self.vectordb.similarity_search(
+                    query=query,
+                    k=top_k,
+                    filter=filter_dict
+                )
+            else:
+                # If no valid filter, search without filter
+                docs = self.vectordb.similarity_search(
+                    query=query,
+                    k=top_k
+                )
+            
+            # Format results
+            results = []
+            for doc in docs:
+                tags = doc.metadata.get("tags", "").split(",") if doc.metadata.get("tags") else []
+                results.append({
+                    "title": doc.metadata.get("title", "Unknown"),
+                    "text": doc.page_content,
+                    "tags": tags
+                })
+            
+            return results
+            
+        except Exception as e:
+            print(f"Error in RAG retrieval: {e}")
             return []
-        
-        # Format results
-        results = []
-        for doc in docs:
-            tags = doc.metadata.get("tags", "").split(",") if doc.metadata.get("tags") else []
-            results.append({
-                "title": doc.metadata.get("title", "Unknown"),
-                "text": doc.page_content,
-                "tags": tags
-            })
-        
-        return results
 
 
 # Helper function to load sample historical data
