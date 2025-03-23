@@ -79,9 +79,9 @@ class RAGRetriever:
         # Prepare filter if tags are provided
         filter_dict = None
         if filter_tags:
-            # This is a simplified filter - in production you'd want more sophisticated filtering
-            tag_str = ",".join(filter_tags)
-            filter_dict = {"tags": {"$contains": tag_str}}
+            # Use $in operator which is supported by ChromaDB
+            # We'll search for any document that has at least one of the tags
+            filter_dict = {"tags": {"$in": filter_tags}}
         
         # Retrieve documents
         docs = self.vectordb.similarity_search(
