@@ -1,0 +1,130 @@
+{
+  "starting_scene": "bell_tower",
+  "scenes": {
+    "bell_tower": {
+      "title": "The Broken Bell",
+      "description": "You stand beneath the broken bell of the village church. The wooden beams creak above you, and dust motes dance in the rays of sunlight streaming through the stained glass windows. The bell's rope hangs limply, frayed at the end.",
+      "location": "Village Church",
+      "rag_context_query": "medieval church bells, 13th century England",
+      "rag_filter_tags": ["religion", "village", "ritual"],
+      "actions": [
+        "Pull the rope to test the bell",
+        "Examine the inscription on the bell",
+        "Search the altar for clues",
+        "Leave quietly and investigate the woods"
+      ],
+      "next_scene_map": {
+        "0": "bell_breaks",
+        "1": "bell_inscription",
+        "2": "altar_search",
+        "3": "forest_path"
+      },
+      "score_effects": {
+        "0": {"law": -5, "good": 0, "trust": -5, "xp": 2},
+        "1": {"law": 5, "good": 0, "trust": 5, "xp": 5},
+        "2": {"law": 0, "good": 5, "trust": 0, "xp": 3},
+        "3": {"law": -10, "good": 0, "trust": -10, "xp": 1}
+      }
+    },
+    "bell_breaks": {
+      "title": "The Fallen Bell",
+      "description": "As you pull the rope, the ancient mechanism gives way with a terrible groan. The bell crashes down, narrowly missing you, and shatters upon the stone floor. The sound echoes throughout the village, and you hear shouts of alarm from outside.",
+      "location": "Village Church",
+      "rag_context_query": "medieval church bell accidents, village authority",
+      "rag_filter_tags": ["religion", "village", "law"],
+      "actions": [
+        "Flee the scene before anyone arrives",
+        "Stay and explain the accident",
+        "Blame the poor maintenance of the church",
+        "Offer to pay for repairs"
+      ],
+      "next_scene_map": {
+        "0": "forest_path",
+        "1": "village_judgment",
+        "2": "village_judgment",
+        "3": "village_gratitude"
+      },
+      "score_effects": {
+        "0": {"law": -20, "good": -10, "trust": -15, "xp": 2},
+        "1": {"law": 10, "good": 5, "trust": 5, "xp": 5},
+        "2": {"law": -5, "good": -5, "trust": -10, "xp": 3},
+        "3": {"law": 15, "good": 15, "trust": 15, "xp": 10, "skills": {"diplomacy": 2}}
+      }
+    },
+    "bell_inscription": {
+      "title": "Ancient Words",
+      "description": "You climb up to examine the bell more closely. Carved into its bronze surface is an inscription in Latin: 'Voco, Congrego, Mortuos Plango, Fulgura Frango' - 'I call, I gather, I mourn the dead, I break the lightning.' Below the inscription, you notice a small compartment that seems to have been sealed for centuries.",
+      "location": "Village Church",
+      "rag_context_query": "medieval church bell inscriptions, latin phrases",
+      "rag_filter_tags": ["religion", "language", "artifact"],
+      "actions": [
+        "Pry open the compartment",
+        "Ask Ser Elyen about the Latin phrase",
+        "Make a rubbing of the inscription",
+        "Leave the bell alone out of respect"
+      ],
+      "next_scene_map": {
+        "0": "hidden_scroll",
+        "1": "elyen_knowledge",
+        "2": "inscription_rubbing",
+        "3": "altar_search"
+      },
+      "score_effects": {
+        "0": {"law": -10, "good": 0, "trust": -5, "xp": 7},
+        "1": {"law": 0, "good": 0, "trust": 10, "xp": 5},
+        "2": {"law": 5, "good": 5, "trust": 5, "xp": 8, "skills": {"scholarship": 1}},
+        "3": {"law": 10, "good": 5, "trust": 0, "xp": 2}
+      }
+    },
+    "altar_search": {
+      "title": "Secrets of the Altar",
+      "description": "You approach the stone altar at the front of the church. The cloth covering it is dusty and faded, but still bears intricate embroidery depicting scenes from scripture. As you lift the cloth, you discover a small trapdoor in the floor beside the altar.",
+      "location": "Village Church",
+      "rag_context_query": "medieval church altar, hidden chambers",
+      "rag_filter_tags": ["religion", "architecture", "secret"],
+      "actions": [
+        "Open the trapdoor",
+        "Ask Ser Elyen if it's sacrilege to disturb the altar",
+        "Replace the cloth and leave",
+        "Look for a key or mechanism to properly unlock the trapdoor"
+      ],
+      "next_scene_map": {
+        "0": "crypt_entrance",
+        "1": "elyen_warning",
+        "2": "bell_tower",
+        "3": "search_vestry"
+      },
+      "score_effects": {
+        "0": {"law": -5, "good": 0, "trust": 0, "xp": 5},
+        "1": {"law": 5, "good": 5, "trust": 10, "xp": 3},
+        "2": {"law": 10, "good": 0, "trust": -5, "xp": 1},
+        "3": {"law": 15, "good": 5, "trust": 5, "xp": 7, "skills": {"perception": 1}}
+      }
+    },
+    "forest_path": {
+      "title": "The Ancient Woods",
+      "description": "You follow a narrow path into the dense forest surrounding the village. The trees here are old, their gnarled branches forming a canopy that blocks much of the sunlight. The air is thick with the scent of moss and decaying leaves. In the distance, you hear the faint sound of running water.",
+      "location": "Forest",
+      "rag_context_query": "medieval forests, folklore, hunting grounds",
+      "rag_filter_tags": ["nature", "folklore", "danger"],
+      "actions": [
+        "Follow the sound of water",
+        "Look for edible plants or herbs",
+        "Search for signs of other travelers",
+        "Make camp as daylight begins to fade"
+      ],
+      "next_scene_map": {
+        "0": "forest_stream",
+        "1": "herb_gathering",
+        "2": "hunter_encounter",
+        "3": "night_camp"
+      },
+      "score_effects": {
+        "0": {"law": 0, "good": 0, "trust": 0, "xp": 3},
+        "1": {"law": 0, "good": 5, "trust": 5, "xp": 5, "skills": {"herbalism": 1}},
+        "2": {"law": 5, "good": 0, "trust": 0, "xp": 4},
+        "3": {"law": 0, "good": 0, "trust": 5, "xp": 2, "skills": {"survival": 1}}
+      }
+    }
+  }
+}

@@ -1,0 +1,52 @@
+[
+  {
+    "title": "Medieval Church Bells",
+    "text": "In the 13th century, church bells were used to mark time, call people to prayer, and warn of danger. Each bell had a distinct tone and purpose. The ringing of bells was strictly regulated, with different patterns signifying different events. Bell ringers were respected members of the community who underwent years of training.",
+    "tags": ["religion", "village", "ritual"]
+  },
+  {
+    "title": "Bell Inscriptions",
+    "text": "Medieval church bells often bore Latin inscriptions that described their purpose. The phrase 'Voco, Congrego, Mortuos Plango, Fulgura Frango' (I call, I gather, I mourn the dead, I break the lightning) was common, reflecting the belief that consecrated bells could ward off storms and evil spirits.",
+    "tags": ["religion", "language", "artifact"]
+  },
+  {
+    "title": "Village Authority",
+    "text": "In medieval English villages, authority was typically shared between the lord's bailiff, the parish priest, and village elders. Damaging church property was a serious offense that could result in fines, public penance, or even excommunication, depending on the severity and intent.",
+    "tags": ["law", "village", "religion"]
+  },
+  {
+    "title": "Church Architecture",
+    "text": "Many medieval churches contained hidden chambers and passages. Crypts beneath the altar often housed relics or the remains of important local figures. Access to these sacred spaces was typically restricted to clergy, though during times of invasion, villagers might hide valuables or even themselves in these secret areas.",
+    "tags": ["religion", "architecture", "secret"]
+  },
+  {
+    "title": "Forest Folklore",
+    "text": "Medieval forests were seen as liminal spaces, neither fully wild nor civilized. They featured prominently in folklore as places where supernatural beings dwelled. Travelers would often carry charms or say prayers before entering dense woods, and it was considered unwise to leave the path or travel after dark.",
+    "tags": ["nature", "folklore", "danger"]
+  },
+  {
+    "title": "Medicinal Herbs",
+    "text": "Knowledge of medicinal plants was essential in medieval times. Herbs like yarrow were used to staunch bleeding, while chamomile eased stomach ailments. Identifying and properly harvesting these plants was a skill passed down through generations, often by village wise women who served as informal healers.",
+    "tags": ["medicine", "nature", "knowledge"]
+  },
+  {
+    "title": "Medieval Knights",
+    "text": "Knights in the 13th century lived by a code of chivalry that emphasized courage, honor, and protection of the weak. A fallen knight—one who had broken his oath or failed in his duty—faced deep shame. Some sought redemption through pilgrimages or by serving in remote areas where their disgrace was unknown.",
+    "tags": ["nobility", "warfare", "honor"]
+  },
+  {
+    "title": "Medieval Weapons",
+    "text": "By the early 14th century, knights typically carried a longsword, dagger, and lance. Swords were not just weapons but symbols of status and often had names and histories. A well-crafted sword could be passed down for generations and was considered almost a member of the family.",
+    "tags": ["warfare", "nobility", "artifact"]
+  },
+  {
+    "title": "Medieval Justice",
+    "text": "Justice in medieval villages was often swift and public. Minor offenses might be punished with fines or public humiliation, while serious crimes could result in execution. The concept of intent was recognized—accidental damage was treated more leniently than deliberate destruction.",
+    "tags": ["law", "village", "punishment"]
+  },
+  {
+    "title": "Medieval Hospitality",
+    "text": "Offering hospitality to travelers was considered both a Christian duty and a social obligation in medieval times. Refusing shelter to a respectful traveler was frowned upon, especially if night was falling or weather was poor. This custom provided a crucial safety net in an era before formal inns were common in rural areas.",
+    "tags": ["social", "religion", "travel"]
+  }
+]
