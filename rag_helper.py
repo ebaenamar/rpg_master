@@ -82,24 +82,33 @@ class RAGHelper:
             print("Vector store not initialized")
             return []
         
-        results = self.vector_store.similarity_search(query, k=num_results)
-        context = []
-        
-        for doc in results:
-            # Split the content back into title and text
-            parts = doc.page_content.split(': ', 1)
-            title = parts[0] if len(parts) > 1 else doc.metadata.get('title', 'Unknown')
-            text = parts[1] if len(parts) > 1 else doc.page_content
+        try:
+            results = self.vector_store.similarity_search(query, k=num_results)
+            context = []
             
-            context.append({
-                "title": title,
-                "text": text,
-                "source": doc.metadata.get('source', 'historical_data'),
-                "category": doc.metadata.get('category', 'general'),
-                "year": doc.metadata.get('year', 'unknown')
-            })
-        
-        return context
+            for doc in results:
+                try:
+                    # Split the content back into title and text
+                    parts = doc.page_content.split(': ', 1)
+                    title = parts[0] if len(parts) > 1 else doc.metadata.get('title', 'Unknown')
+                    text = parts[1] if len(parts) > 1 else doc.page_content
+                    
+                    context.append({
+                        "title": title,
+                        "text": text,
+                        "source": doc.metadata.get('source', 'historical_data'),
+                        "category": doc.metadata.get('category', 'general'),
+                        "year": doc.metadata.get('year', 'unknown')
+                    })
+                except Exception as doc_error:
+                    print(f"Error processing document: {doc_error}")
+                    # Continue with next document instead of failing completely
+                    continue
+            
+            return context
+        except Exception as e:
+            print(f"Error retrieving context: {e}")
+            return []
 
 # Helper function to use in the notebook
 def setup_rag_system(historical_data_path: str = "./data/historical_data.json") -> RAGHelper:
