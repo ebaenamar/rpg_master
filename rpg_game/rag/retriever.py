@@ -81,14 +81,21 @@ class RAGRetriever:
         if filter_tags:
             # Use $in operator which is supported by ChromaDB
             # We'll search for any document that has at least one of the tags
-            filter_dict = {"tags": {"$in": filter_tags}}
+            # Make sure we're using a string for each tag
+            string_tags = [str(tag) for tag in filter_tags]
+            filter_dict = {"tags": {"$in": string_tags}}
         
-        # Retrieve documents
-        docs = self.vectordb.similarity_search(
-            query=query,
-            k=top_k,
-            filter=filter_dict
-        )
+        try:
+            # Retrieve documents
+            docs = self.vectordb.similarity_search(
+                query=query,
+                k=top_k,
+                filter=filter_dict
+            )
+        except ValueError as e:
+            print(f"Error in similarity search: {e}")
+            # Return empty results if there's an error
+            return []
         
         # Format results
         results = []
