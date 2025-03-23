@@ -76,6 +76,8 @@ class RAGRetriever:
         Returns:
             List of relevant historical context documents
         """
+        print(f"[RAG] Query: {query}")
+        print(f"[RAG] Filter tags: {filter_tags}")
         try:
             # Prepare filter if tags are provided
             filter_dict = None
@@ -112,6 +114,11 @@ class RAGRetriever:
                     "text": doc.page_content,
                     "tags": tags
                 })
+            
+            print(f"[RAG] Retrieved {len(results)} documents")
+            if results:
+                print(f"[RAG] First result title: {results[0]['title']}")
+                print(f"[RAG] First result text snippet: {results[0]['text'][:100]}...")
             
             return results
             

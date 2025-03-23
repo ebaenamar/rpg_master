@@ -21,7 +21,9 @@ class GameOrchestrator:
         self.rag_retriever = RAGRetriever()
         self.scoring_engine = ScoringEngine()
         self.behavior_controller = BehaviorController()
-        self.llm_agent = LLMCharacterAgent()
+        # Get API key from environment and pass it explicitly to the agent
+        api_key = os.environ.get('AI21_API_KEY')
+        self.llm_agent = LLMCharacterAgent(api_key=api_key)
         
         # Game state
         self.current_scene_id = None
